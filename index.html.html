@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeadPack — Des clients prêts à signer pour agences et freelances web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;background:#0A1628;color:#fff;line-height:1.6;overflow-x:hidden}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,0.4)}50%{box-shadow:0 0 0 12px rgba(59,130,246,0)}}
+.fade-in{opacity:0;animation:fadeInUp 0.7s ease forwards}
+.fade-in-1{animation-delay:0.1s}.fade-in-2{animation-delay:0.25s}.fade-in-3{animation-delay:0.4s}.fade-in-4{animation-delay:0.55s}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(59,130,246,0.12)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:0 24px;height:64px}
+.nav-cta{background:#3B82F6;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-family:'Inter',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;text-decoration:none;transition:background 0.2s,transform 0.2s}
+.nav-cta:hover{background:#2563EB;transform:translateY(-1px)}
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding-top:64px;background:#0A1628}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(59,130,246,0.13) 0%,transparent 70%);pointer-events:none}
+.hero-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(59,130,246,0.18) 1px,transparent 1px);background-size:32px 32px;opacity:0.6;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:820px;margin:0 auto;padding:0 24px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.3);border-radius:50px;padding:6px 16px;font-size:0.82rem;font-weight:600;color:#93C5FD;margin-bottom:28px;letter-spacing:0.3px}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:#3B82F6;display:inline-block;animation:pulse 2s infinite}
+.hero-h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.1;letter-spacing:-1.5px;margin-bottom:24px;background:linear-gradient(135deg,#fff 60%,#93C5FD 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.22rem);color:#94A3B8;max-width:640px;margin:0 auto 40px;font-weight:400;line-height:1.7}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;text-decoration:none;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1.05rem;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 24px rgba(59,130,246,0.4)}
+.hero-cta:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(59,130,246,0.55)}
+.hero-stats{display:flex;gap:48px;justify-content:center;margin-top:64px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:2.2rem;font-weight:800;color:#3B82F6;letter-spacing:-1px}
+.hero-stat-label{font-size:0.82rem;color:#64748B;margin-top:2px;font-weight:500}
+.section-label{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#3B82F6;margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-0.8px;line-height:1.15;margin-bottom:16px}
+.section-sub{font-size:1rem;color:#94A3B8;max-width:560px;line-height:1.7}
+#problem{background:#111D33}
+.problem-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.problem-text p{color:#94A3B8;font-size:1.05rem;line-height:1.8;margin-top:16px}
+.problem-visual{display:flex;flex-direction:column;gap:16px}
+.stat-card{border-radius:16px;padding:28px 32px;display:flex;align-items:center;gap:20px}
+.stat-card-bad{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25)}
+.stat-card-good{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25)}
+.stat-icon{font-size:2rem;flex-shrink:0}
+.stat-value{font-size:1.7rem;font-weight:800;letter-spacing:-0.5px}
+.stat-card-bad .stat-value{color:#EF4444}
+.stat-card-good .stat-value{color:#3B82F6}
+.stat-desc{font-size:0.88rem;color:#94A3B8;margin-top:2px}
+#solution{background:#0A1628}
+.solution-header{text-align:center;margin-bottom:56px}
+.solution-header .section-sub{margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feature-card{background:#111D33;border:1px solid rgba(59,130,246,0.1);border-radius:20px;padding:36px 28px;transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#3B82F6,#60A5FA);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.feature-card:hover{transform:translateY(-6px);border-color:rgba(59,130,246,0.3);box-shadow:0 16px 40px rgba(0,0,0,0.3)}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-icon{width:52px;height:52px;background:rgba(59,130,246,0.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px}
+.feature-title{font-size:1.15rem;font-weight:700;margin-bottom:10px}
+.feature-desc{font-size:0.9rem;color:#94A3B8;line-height:1.7}
+.how-it-works{background:#0F1D32}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+.step-card{text-align:center;padding:24px 16px}
+.step-num{width:48px;height:48px;background:rgba(59,130,246,0.15);border:2px solid #3B82F6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#3B82F6;margin:0 auto 16px}
+.step-title{font-size:1rem;font-weight:700;margin-bottom:8px}
+.step-desc{font-size:0.85rem;color:#94A3B8;line-height:1.6}
+#sample{background:#0A1628}
+.sample-header{text-align:center;margin-bottom:48px}
+.table-wrapper{overflow-x:auto;border-radius:16px;border:1px solid rgba(59,130,246,0.12);background:#111D33}
+table{width:100%;border-collapse:collapse;min-width:620px}
+thead{background:rgba(59,130,246,0.1)}
+th{padding:14px 16px;text-align:left;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#60A5FA;border-bottom:1px solid rgba(59,130,246,0.15)}
+td{padding:14px 16px;font-size:0.88rem;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:rgba(255,255,255,0.015)}
+tr:hover td{background:rgba(59,130,246,0.05)}
+.score-badge{display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;border-radius:8px;padding:4px 10px}
+.score-red{background:rgba(239,68,68,0.15);color:#F87171;border:1px solid rgba(239,68,68,0.3)}
+.score-orange{background:rgba(249,115,22,0.15);color:#FB923C;border:1px solid rgba(249,115,22,0.3)}
+.priority-1{background:rgba(239,68,68,0.15);color:#F87171;border:1px solid rgba(239,68,68,0.3);font-weight:800}
+.priority-2{background:rgba(249,115,22,0.15);color:#FB923C;border:1px solid rgba(249,115,22,0.3);font-weight:800}
+.locked{font-size:1.1rem;opacity:0.5}
+.table-note{margin-top:20px;text-align:center;font-size:0.85rem;color:#64748B;font-style:italic}
+.free-cta{text-align:center;margin-top:40px}
+.free-cta a{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;text-decoration:none;padding:16px 36px;border-radius:12px;font-weight:700;font-size:1.05rem;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 24px rgba(34,197,94,0.4)}
+.free-cta a:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(34,197,94,0.55)}
+.script-box{background:#0A1628;border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:20px 24px;margin-top:32px}
+.script-box h3{font-size:0.9rem;font-weight:700;color:#60A5FA;margin-bottom:12px}
+#pricing{background:#0F1D32}
+.pricing-header{text-align:center;margin-bottom:56px}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.pricing-card{background:#111D33;border:1px solid rgba(59,130,246,0.1);border-radius:24px;padding:36px 28px;position:relative;transition:transform 0.25s,box-shadow 0.25s}
+.pricing-card.featured{background:linear-gradient(145deg,#0F2347,#111D33);border-color:#3B82F6;transform:translateY(-8px);box-shadow:0 24px 64px rgba(59,130,246,0.2)}
+.pricing-card:not(.featured):hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.3)}
+.pricing-card.free-card{border-color:rgba(34,197,94,0.4)}
+.popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.5px;white-space:nowrap}
+.free-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;font-size:0.75rem;font-weight:700;padding:5px 18px;border-radius:50px;letter-spacing:0.5px;white-space:nowrap}
+.plan-name{font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#60A5FA;margin-bottom:12px}
+.plan-price{font-size:3rem;font-weight:900;letter-spacing:-2px;line-height:1;margin-bottom:4px}
+.plan-billing{font-size:0.8rem;color:#64748B;margin-bottom:28px}
+.plan-divider{height:1px;background:rgba(255,255,255,0.07);margin-bottom:24px}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:0.88rem;color:#CBD5E1}
+.plan-features li::before{content:'✓';color:#3B82F6;font-weight:700;flex-shrink:0;margin-top:1px}
+.plan-features li.no{opacity:0.5}
+.plan-features li.no::before{content:'✗';color:#64748B}
+.plan-note{color:#64748B;font-size:0.75rem;margin-bottom:20px;line-height:1.5}
+.plan-btn{display:block;width:100%;padding:14px;border-radius:12px;font-family:'Inter',sans-serif;font-weight:700;font-size:0.95rem;text-align:center;text-decoration:none;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s}
+.plan-btn-primary{background:linear-gradient(135deg,#3B82F6,#2563EB);color:#fff;border:none;box-shadow:0 4px 16px rgba(59,130,246,0.35)}
+.plan-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,130,246,0.5)}
+.plan-btn-secondary{background:transparent;color:#3B82F6;border:1.5px solid #3B82F6}
+.plan-btn-secondary:hover{background:rgba(59,130,246,0.1);transform:translateY(-2px)}
+.plan-btn-green{background:linear-gradient(135deg,#22C55E,#16A34A);color:#fff;border:none;box-shadow:0 4px 16px rgba(34,197,94,0.35)}
+.plan-btn-green:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(34,197,94,0.5)}
+#about{background:#0A1628}
+.about-card{background:#111D33;border:1px solid rgba(59,130,246,0.1);border-radius:20px;padding:48px 40px;max-width:700px;margin:0 auto}
+.about-card p{color:#94A3B8;line-height:1.8;font-size:1rem;margin-bottom:16px}
+.about-card strong{color:#fff}
+.about-links{display:flex;gap:24px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+.about-links a{display:inline-flex;align-items:center;gap:8px;color:#3B82F6;font-weight:700;text-decoration:none;font-size:0.95rem;padding:10px 20px;border:1.5px solid rgba(59,130,246,0.3);border-radius:10px;transition:background 0.2s}
+.about-links a:hover{background:rgba(59,130,246,0.1)}
+#trust{background:#111D33;padding:64px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.trust-card{background:#0A1628;border:1px solid rgba(59,130,246,0.08);border-radius:16px;padding:28px 24px;text-align:center;transition:border-color 0.25s}
+.trust-card:hover{border-color:rgba(59,130,246,0.25)}
+.trust-icon{font-size:2rem;margin-bottom:12px}
+.trust-title{font-weight:700;font-size:1rem;margin-bottom:8px}
+.trust-desc{font-size:0.85rem;color:#64748B;line-height:1.6}
+#faq{background:#0F1D32}
+.faq-header{text-align:center;margin-bottom:48px}
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+details{background:#111D33;border:1px solid rgba(59,130,246,0.1);border-radius:14px;overflow:hidden;transition:border-color 0.2s}
+details[open]{border-color:rgba(59,130,246,0.3)}
+summary{padding:20px 24px;cursor:pointer;font-weight:600;font-size:0.97rem;display:flex;align-items:center;justify-content:space-between;gap:16px;list-style:none;user-select:none;transition:color 0.2s}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-size:1.3rem;font-weight:300;color:#3B82F6;transition:transform 0.25s;flex-shrink:0}
+details[open] summary::after{transform:rotate(45deg)}
+details[open] summary{color:#60A5FA}
+.faq-answer{padding:0 24px 20px;font-size:0.92rem;color:#94A3B8;line-height:1.75;border-top:1px solid rgba(255,255,255,0.04);padding-top:16px}
+footer{background:#060E1C;padding:40px 0;border-top:1px solid rgba(59,130,246,0.08)}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.footer-copy{font-size:0.83rem;color:#475569}
+.footer-contact{font-size:0.83rem;color:#64748B}
+.footer-contact a{color:#60A5FA;text-decoration:none}
+.footer-contact a:hover{text-decoration:underline}
+.footer-legal{font-size:0.72rem;color:#374151;max-width:600px;line-height:1.5;margin-top:8px}
+@media(max-width:900px){
+.problem-inner{grid-template-columns:1fr}
+.features-grid{grid-template-columns:1fr}
+.steps-grid{grid-template-columns:1fr 1fr}
+.pricing-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+.pricing-card.featured{transform:translateY(0)}
+.trust-grid{grid-template-columns:1fr 1fr}
+.about-card{padding:32px 24px}
+}
+@media(max-width:640px){
+section{padding:64px 0}
+.hero-stats{gap:28px}
+.steps-grid{grid-template-columns:1fr}
+.trust-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>*
+
+< navigation > <div class="nav-inner"> <div style="font-size :1.4rem ; poids de police : 900 ; espacement des lettres : 0,5 px ; couleur : #fff ;" >Lead<span style="color :#3B82F6 ; » >Pack</span></div> <a href="https://tally.so/r/9qvGB5 » class="nav-cta » target="_blank">5 leads gratuits</a> </div> </navigation >_
+<section id="héroïne"> <div class="hero-bg"></div> <div class="hero-dots"></div> <div class="hero-content"> <div class="insigne héros fondu en 1"><span></span>France · Belgique · Suisse · 914+ entreprises analysées</div> <h1 class="hero-h1 fade-in fade-in-2">Des entreprises qui ont besoin d’un site web — livrées dans votre boîte mail</h1> <p class="hero-sub fade-in fade-in-3">On identifie les entreprises locales sans site ou avec un site obsolète. Vous recevez leur nom, téléphone, email, score qualité et un script d’appel. Il ne reste qu’à décrocher.</p> <a href="https://tally.so/r/9qvGB5 » class="hero-cta fade-in-in fade-in-4 » target="_blank"> 🎁 5 leads offerts — Tester gratuitement ↓</a> <div class="hero-stats fade-in fade-in-4"> <div class="hero-stat"><div class="hero-stat-num">914+</div><div class="hero-stat-label">Entreprises analysées</div></div> <div class="hero-stat"><div class="hero-stat-num">453</div><div class="hero-stat-label">Site sans web</div></div> <div class="hero-stat"><div class="hero-stat-num">< 5min</div><div class="hero-stat-label">Livraison</div></div> </div> </div> </section >_
+<section id="problème"> <div class="container"> <div class="problème-intérieur"> <div class="révélation du texte du problème"> <p class="section-label">Le problème</p> <h2 class="section-title">Vous cherchez des clients au lieu de créer des sites</h2> <p>Vous êtes freelance ou agence web. Votre métier c’est de créer des sites, pas de prospecter. Pourtant vous passez des heures à chercher des clients, gaspillez <strong>15€ par clic</strong> sur Google Ads, ou attendez que le bouche-à-oreille fasse le travail. Pendant ce temps, des centaines d’entreprises locales n’ont toujours pas de site web.</p> </div> <div class="révélation visuale problème"> <div class="stat-card stat-card-bad"><div class="stat-icon">💸</div><div><div class="stat-value">15€/clic sur Google Ads</div><div class="stat-desc">Sans garantie que le prospect ait besoin d’un site</div></div></div> <div class="stat-card stat-card-good"><div class="stat-icon">🎯</div><div><div class="stat-value">60 % sans site web</div><div class="stat-desc">Des entreprises locales analysées n’ont pas de site ou ont un site obsolète</div></div></div> </div> </div> </div> </section >
+<section id="solution"> <div class="container"> <div class="solution-header reveal"> <p class="section-label">La solution</p> <h2 class="section-title">On vous dit exactement qui appeler et quoi dire</h2> <p class="section-sub">Pas juste une liste. Un outil de vente complet avec score de priorité et script d’appel personnalisé pour chaque prospect.</p> </div> <div class="features-grid"> <div class="feature-card reveal"><div class="feature-icon">🔍</div><div class="feature-title">Prospects identifiés</div><p class="feature-desc">Entreprises locales sans site web, avec un site non mobile, sans SSL, design daté ou zéro SEO. Données B2B publiques uniquement.</p></div> <div class="feature-card reveal"><div class="feature-icon">🎯</div><div class="feature-title">Score de priorité</div><p class="feature-desc">Chaque prospect est noté de 1 à 3. Priorité 1 = pas de site du tout, besoin urgent. Vous savez qui appeler en premier.</p></div> <div class="feature-card reveal"><div class="feature-icon">📞</div><div class="feature-title">Script d’appel inclus</div><p class="feature-desc">Pour chaque prospect, un script personnalisé basé sur les problèmes détectés. Vous savez exactement quoi dire pour signer.</p></div> </div> </div> </section >
+<section class="how-it-works"> <div class="container"> <div style="text-align :center ; » class="reveal"> <p class="section-label">Comment ça marche</p> <h2 class="section-title">4 étapes vers vos prochains clients</h2> </div> <div class="steps-grid reveal"> <div class="step-card"><div class="step-num">1</div><div class="step-title">Testez gratuitement</div><p class="step-desc">Recevez 5 prospects réels avec score et script. Zéro engagement, zéro carte bancaire.</p></div> <div class="step-card"><div class="step-num">2</div><div class="step-title">Appelez les priorités</div><p class="step-desc">Commencez par les Priorité 1. Utilisez le script fourni. 5 minutes par appel.</p></div> <div class="step-card"><div class="step-num">3</div><div class="step-title">Signez des contrats</div><p class="step-desc">Un site web = 500 à 5 000€. Un seul client signé rentabilise le pack plusieurs fois.</p></div> <div class="step-card"><div class="step-num">4</div><div class="step-title">Recevez plus de leads</div><p class="step-desc">Satisfait ? Passez au pack Essentiel ou Pro pour un flux régulier de prospects.</p></div> </div> </div> </section >
+<section id="sample"> <div class="container"> <div class="sample-header reveal"> <p class="section-label">Aperçu</p> <h2 class="section-title">Voici ce que vous recevez</h2> <p class="section-sub » style="margin :0 auto">Données B2B professionnelles publiques — 100 % conforme RGPD</p> </div> <div class="table-wrapper reveal"> < table> <thead><tr><th>Entreprise</th><th>Secteur</th><th>Ville</th><th>Problème</th><th>Priorité</th><th>Contact</th></tr></thead> < > <tr><td><strong>Restaurant Le Jardin</strong></td><td>Restauration</td><td>Lyon</td><td><span class="score-badge score-red">Pas de site web</span></td><td><span class="score-badge priorité-1">P1</span></td><td class="locked">🔒</td></tr> <tr><td><strong>Cabinet Martin & Associés</strong></td><td>Comptabilité</td><td>Bruxelles</td><td><span class="score-badge score-orange">Site non mobile + pas SSL</span></td><td><span class="score-badge priority-2">P2</span></td><td class="locked"> 🔒</td></tr> <tr><td><strong>Boulangerie Du Pont</strong></td><td>Commerce</td><td>Lausanne</td><td><span class="score-badge score-red">Pas de site web</span></td><td><span class="score-badge priorité-1">P1</span></td><td class="locked">🔒</td></tr> <tr><td><strong>Garage Central Auto</strong></td><td>Automobile</td><td>Toulouse</td><td><span class="score-badge score-orange">Design 2012, pas SSL</span></td><td><span class="score-badge priority-2">P2</span></td><td class="locked">🔒</td></tr> <tr><td><strong>Salon Élégance</strong></td><td>Coiffure</td><td>Bordeaux</td><td><span class="score-badge score-red">Pas de site web</span></td><td><span class="score-badge priorité-1">P1</span></td><td class="locked">🔒</td> </tr> </tbody> </table> </div> <p class="révélation de notes de table">Noms fictifs pour l’aperçu. Les vrais leads contiennent : raison sociale, téléphone, email, adresse, site web, score qualité /100, priorité et script d’appel.</p>
+<div class="script-box révélation"> <h3> 📞 Script d’appel personnalisé inclus dans chaque lead</h3> <p style="filter :blur(4px) ; user-select :aucun ;" >"Bonjour, je suis [votre nom] de [votre agence]. Je travaille avec des entreprises locales comme la vôtre et j’ai remarqué que vous n’avez pas encore de site web. Aujourd’hui, 80 % des clients cherchent en ligne avant de..."</p> <p style="text-align :center ; marge-haut : 12px ;" ><a href="https://tally.so/r/9qvGB5 » target="_blank » style="color :#3B82F6 ; poids de police : 700 ; décoration-texte : aucun ;" > 🔓 Recevez vos 5 leads gratuits pour débloquer le script →</a></p> </div>_
+<div class="free-cta reveal"> <a href="https://tally.so/r/9qvGB5 » target="_blank"> 🎁 Recevoir 5 leads gratuits avec script d’appel</a> </div> </div> </section >_
+<section id="prix"> <div class="container"> <div class="révélation de l’en-tête de prix"> <p class="section-label">Tarifs</p> <h2 class="section-title">Commencez gratuitement</h2> <p class="section-sub » style="margin :0 auto">5 leads offerts. Payez seulement si la qualité vous convainc.</p> </div> <div class="révélation de la grille de prix">
+<div class="pricing-card free-card"> <div class="free-badge"> 🎁 Gratuit</div> <div class="plan-name">Test</div> <div class="plan-price"><sup>€</sup>0</div> <div class="plan-billing">sans engagement</div> <div class="plan-divider"></div> <ul class="plan-features"> <li>5 prospects B2B réels</li> <li>Nom + téléphone + email</li> <li>Score qualité + priorité</li> <li>Script d’appel inclus</li> <li>Zéro carte bancaire</li> </UL> <a href="https://tally.so/r/9qvGB5 » target="_blank » class="plan-btn plan-btn-green">Recevoir 5 leads gratuits</a> </div>_
+<div class="pricing-card présentée> <div class="popular-badge"> ⭐ Meilleur rapport qualité/prix</div> <div class="plan-name">Essentiel</div> <div class="plan-price"><sup>€</sup>29</div> <div class="plan-billing">paiement unique</div> <div class="plan-divider"></div> <ul class="plan-features"> <li>20 prospects B2B vérifiés</li> <li>Nom + téléphone + email + adresse</li> <li>Score qualité /100 + priorité</li> <li>Problèmes détectés par prospect</li> <li>Script d’appel personnalisé</li> <li>Livraison instantanée</li> <li>Satisfait ou remboursé 72h</li> </UL> <a href="https://buy.stripe.com/fZu4gBfEbg2Q4LL2jQd3i08 » class="plan-btn plan-btn-primary » target="_blank » rel="noopener">Commander — 29€</a> </div>_
+<div class="pricing-card"> <div class="plan-name">Pro</div> <div class="plan-price"><sup>€</sup>300<span style="font-size :1rem ; poids de police : 400 ; Couleur : #64748B">/mois</portée></Div> <div class="plan-billing">sans engagement · résiliable à tout moment</div> <div class="plan-divider"></div> <ul class="plan-features"> <li>40+ prospects par semaine</li> <li>Tout le pack Essentiel inclus</li> <li>Email dirigeant vérifié</li> <li>Filtre zone géographique précise</li> <li>Nouveaux leads chaque lundi</li> <li>Support prioritaire</li> </UL> <p class="plan-note">Idéal pour les agences qui veulent un flux régulier de prospects qualifiés</p> <a href="https://buy.stripe.com/fZu6oJgIf6sga65gaGd3i04 » class="plan-btn plan-btn-secondary » target="_blank » rel="noopener">S’abonner — 300€/mois</a> </div>_
+</div> </div> </section >
+<section id="àpropos> <div class="container"> <div style="text-align :center ; margin-bottom :40px ;« class="reveal"> <p class="section-label">Qui sommes-nous</p> <h2 class="section-title">Derrière LeadPack, il y a un humain</h2> </div> <div class="révélation de la carte abouti"> <p>Je suis <strong>Jason Chambon</strong>, fondateur de LeadPack. Basé en France, passionné par l’automatisation et le business digital.</p> <p>Tout a commencé par un constat simple : <strong>des milliers d’entreprises locales en France, Belgique et Suisse n’ont toujours pas de site web en 2026.</strong> Des restaurants, des coiffeurs, des garages, des cabinets comptables — ils perdent des clients chaque jour parce qu’ils n’existent pas en ligne.</p> <p>De l’autre côté, <strong>des freelances et agences web cherchent des clients</strong> en gaspillant du temps et de l’argent en prospection.</p> <p>J’ai créé LeadPack pour résoudre ce problème : <strong>identifier automatiquement ces entreprises, analyser leur présence web, et livrer des prospects actionnables</strong> — avec nom, téléphone, score de priorité et script d’appel — directement aux professionnels du web qui peuvent les aider.</p> <p>Plus de 900 entreprises analysées. Des données B2B publiques, conformes RGPD. Un service transparent, avec un vrai humain derrière.</p> <div class="about-links"> <a href="https://www.linkedin.com/in/jason-marchal-chambon-a7160239b/ » target="_blank"> 💼 Mon LinkedIn</a> <a href="mailto:contact@leadpack.eu"> ✉️ contact@leadpack.eu</a> </div> </div> </div> </section >_
+<section id="trust"> <div class="container"> <div class="trust-grid reveal"> <div class="trust-card"><div class="trust-icon">🛡️</div><div class="trust-title">100 % RGPD</div><p class="trust-desc">Uniquement des données B2B professionnelles publiques. Aucune donnée de particulier.</p></div> <div class="trust-card"><div class="trust-icon">🔒</div><div class="trust-title">Paiement Stripe</div><p class="trust-desc">Transactions sécurisées et chiffrées par Stripe.</p></div> <div class="trust-card"><div class="trust-icon">🎁</div><div class="trust-title">Testez avant d’acheter</div><p class="trust-desc">5 leads gratuits pour vérifier la qualité. Zéro risque, zéro carte bancaire.</p></div> <div class="trust-card"><div class="trust-icon">💯</div><div class="trust-title">Satisfait ou remboursé</div><p class="trust-desc">72h pour tester le pack Essentiel. Remboursement intégral si insatisfait.</p></div> </div> </div> </section >
+<section id="faq"> <div class="container"> <div class="faq-header reveal reveal"> <p class="section-label">FAQ</p> <h2 class="section-title">Questions fréquentes</h2> </div> <div class="révélation de la liste des faq"> <details><summary>C’est quoi exactement un « lead » ?</summary><div class="faq-answer">Un lead c’est une entreprise locale qui n’a pas de site web ou qui a un site obsolète — exactement le type de client qui a besoin de vos services. Vous recevez sa raison sociale, téléphone, email, adresse, score qualité et un script d’appel personnalisé.</div></details> <détails><résumé>Comment vous trouvez ces prospects ?</summary><div class="faq-answer">On analyse les données professionnelles publiques via Google Maps et les annuaires d’entreprises. On vérifie chaque site web (SSL, mobile, SEO, design) et on identifie ceux qui ont un problème visible. Chaque contact est vérifié avant livraison.</div></details> <details><summary>C’est quoi le score de priorité ?</summary><div class="faq-answer">Priorité 1 = pas de site web du tout (besoin le plus urgent). Priorité 2 = site existant mais obsolète (non mobile, pas de SSL, design daté). Priorité 3 = site existant avec des problèmes SEO. Appelez les P1 en premier — ce sont les plus faciles à convertir.</div></details> <details><summary>Le script d’appel c’est quoi ?</summary><div class="faq-answer">Pour chaque prospect, on vous donne une phrase d’accroche personnalisée basée sur le problème détecté. Vous savez exactement quoi dire au téléphone pour capter l’attention et proposer vos services.</div></details> <details><summary>Combien de clients je peux signer ?</summary><div class="faq-answer">En moyenne, sur 20 prospects appelés, 2 à 5 sont intéressés par un devis. Un seul contrat de création de site (500-5 000€) rentabilise le pack Essentiel plusieurs dizaines de fois.</div></details> <détails><résumé>C’est conforme RGPD ?</summary><div class="faq-answer">Oui. On collecte uniquement des données B2B professionnelles publiques : raison sociale, numéro de téléphone professionnel, site web professionnel. Aucune donnée de particulier. Toute entreprise peut demander sa suppression de notre base.</div></details> <details><summary>Et si les leads ne sont pas bons ?</summary><div class="faq-answer">C’est pour ça qu’on offre 5 leads gratuits : testez avant de payer. Et le pack Essentiel inclut une garantie satisfait ou remboursé 72h sans condition.</div></details> <details><summary>Quelle différence entre Essentiel et Pro ?</summary><div class="faq-answer">Le pack Essentiel (29€) vous donne 20 prospects en une fois. Le Pro (300€/mois) vous livre 40+ nouveaux prospects chaque semaine, avec email du dirigeant vérifié et ciblage par zone géographique. C’est la différence entre un achat ponctuel et un pipeline régulier.</div></details> </div> </div> </section >
+<pied> <div class="container"> <div class="footer-inner"> <div style="font-size :1.2rem ; poids de police : 900 ; espacement des lettres : 0,5 px ; couleur : #fff ;" >Lead<span style="color :#3B82F6 ; » >Pack</span></div> <div class="footer-contact">Contact : <a href="mailto:contact@leadpack.eu">contact@leadpack.eu</a></div> <div class="footer-copy"> © 2026 LeadPack. Tous droits réservés.</div> <div class="footer-legal">LeadPack — Jason Chambon · Entrepreneur individuel · contact@leadpack.eu · Données B2B professionnelles publiques conformes RGPD · Hébergé par Netlify · Paiements sécurisés par Stripe</div> </div> </div> </footer>
+< scénario > (fonction(){ var els=document.querySelectorAll('.reveal') ; if( !els.longueur)retour ; var obs=new IntersectionObserver(function(entrries){ entries.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('visible') ; obs.unobserve(e.target) ;} }); },{seuil :0.12}) ; els.forEach(function(el){obs.observe(el) ;}) ; })(); </scénario >
+</corps > </html> ```
