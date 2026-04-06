@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeadPack — Prospects web chauds livrés instantanément</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#050B18;
+--bg2:#080F1E;
+--bg3:#0C1428;
+--blue:#3B7FF5;
+--blue-light:#60A5FA;
+--blue-dim:rgba(59,127,245,0.12);
+--blue-border:rgba(59,127,245,0.2);
+--green:#10D98A;
+--green-dim:rgba(16,217,138,0.1);
+--text:#F0F4FF;
+--muted:#6B7A99;
+--card:#0D1526;
+--card-border:rgba(255,255,255,0.06);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Syne',sans-serif}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 24px;background:rgba(5,11,24,0.92);backdrop-filter:blur(12px)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;height:68px;border-bottom:1px solid var(--card-border)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.35rem;color:var(--text);letter-spacing:-0.5px}
+.logo span{color:var(--blue)}
+.nav-cta{background:var(--blue);color:#fff;border:none;padding:9px 20px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:0.875rem;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.nav-cta:hover{background:#2B6FE5;transform:translateY(-1px)}
+
+#hero{min-height:100vh;display:flex;align-items:center;padding-top:68px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,127,245,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(59,127,245,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hero-glow{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:800px;height:600px;background:radial-gradient(ellipse,rgba(59,127,245,0.15) 0%,transparent 65%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:6px;padding:5px 14px;font-size:0.78rem;font-weight:500;color:var(--blue-light);margin-bottom:28px;letter-spacing:0.5px;text-transform:uppercase}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+h1{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:800;line-height:1.08;letter-spacing:-1.5px;margin-bottom:20px;color:var(--text)}
+h1 em{font-style:normal;color:var(--blue)}
+.hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:36px;max-width:480px}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;text-decoration:none;padding:14px 28px;border-radius:10px;font-family:'Syne',sans-serif;font-weight:600;font-size:0.95rem;transition:all 0.2s;box-shadow:0 0 30px rgba(59,127,245,0.3)}
+.btn-primary:hover{background:#2B6FE5;transform:translateY(-2px);box-shadow:0 0 50px rgba(59,127,245,0.5)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;color:var(--muted);text-decoration:none;font-size:0.9rem;transition:color 0.2s}
+.btn-ghost:hover{color:var(--text)}
+
+.live-feed{background:var(--card);border:1px solid var(--card-border);border-radius:16px;overflow:hidden}
+.feed-header{padding:16px 20px;border-bottom:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between}
+.feed-title{font-family:'Syne',sans-serif;font-weight:600;font-size:0.875rem;color:var(--text)}
+.feed-live{display:flex;align-items:center;gap:6px;font-size:0.75rem;color:var(--green)}
+.feed-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+.feed-item{padding:16px 20px;border-bottom:1px solid var(--card-border);transition:background 0.2s}
+.feed-item:hover{background:rgba(59,127,245,0.04)}
+.feed-item:last-child{border-bottom:none}
+.feed-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.feed-item-title{font-size:0.85rem;font-weight:500;color:var(--text);line-height:1.4}
+.feed-badge{flex-shrink:0;font-size:0.68rem;font-weight:700;padding:3px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.badge-new{background:var(--green-dim);color:var(--green);border:1px solid rgba(16,217,138,0.2)}
+.badge-hot{background:rgba(251,113,133,0.1);color:#FB7185;border:1px solid rgba(251,113,133,0.2)}
+.feed-item-meta{font-size:0.76rem;color:var(--muted)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--card-border);margin-top:32px;border-radius:12px;overflow:hidden}
+.hero-stat{background:var(--bg2);padding:20px 16px;text-align:center}
+.hero-stat-num{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--blue);letter-spacing:-0.5px}
+.hero-stat-label{font-size:0.75rem;color:var(--muted);margin-top:2px}
+
+section{padding:100px 0}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.section-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--blue);margin-bottom:12px;display:block}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;letter-spacing:-0.8px;line-height:1.15;margin-bottom:16px}
+.section-sub{font-size:1rem;color:var(--muted);line-height:1.75;max-width:540px}
+
+#how{background:var(--bg2)}
+.how-header{text-align:center;margin-bottom:64px}
+.how-header .section-sub{margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--card-border);border-radius:16px;overflow:hidden}
+.step{background:var(--card);padding:36px 28px}
+.step-num{width:40px;height:40px;border-radius:8px;background:var(--blue-dim);border:1px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;color:var(--blue);margin-bottom:20px}
+.step-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:8px}
+.step-desc{font-size:0.85rem;color:var(--muted);line-height:1.65}
+
+#pricing{background:var(--bg)}
+.pricing-header{text-align:center;margin-bottom:56px}
+.pricing-header .section-sub{margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.pricing-card{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:32px 24px;position:relative;transition:all 0.25s}
+.pricing-card:hover{border-color:var(--blue-border);transform:translateY(-4px)}
+.pricing-card.free{border-color:rgba(16,217,138,0.2)}
+.pricing-card.featured{background:linear-gradient(145deg,#0D1E3A,var(--card));border-color:var(--blue);box-shadow:0 0 40px rgba(59,127,245,0.15)}
+.pricing-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:0.7rem;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:0.5px}
+.badge-free{background:var(--green);color:#041210}
+.badge-pop{background:var(--blue);color:#fff}
+.plan-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px}
+.plan-price{font-family:'Syne',sans-serif;font-size:2.6rem;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:4px}
+.plan-price sup{font-size:1.1rem;font-weight:600;vertical-align:top;margin-top:8px}
+.plan-leads{font-size:0.82rem;color:var(--muted);margin-bottom:24px}
+.plan-leads strong{color:var(--text)}
+.plan-divider{height:1px;background:var(--card-border);margin-bottom:20px}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.plan-features li{font-size:0.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.plan-features li::before{content:'→';color:var(--blue);font-size:0.75rem;margin-top:2px;flex-shrink:0}
+.plan-btn{display:block;width:100%;padding:12px;border-radius:8px;font-family:'Syne',sans-serif;font-weight:700;font-size:0.875rem;text-align:center;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s}
+.plan-btn-blue{background:var(--blue);color:#fff}
+.plan-btn-blue:hover{background:#2B6FE5;transform:translateY(-1px)}
+.plan-btn-outline{background:transparent;color:var(--blue);border:1.5px solid var(--blue-border)}
+.plan-btn-outline:hover{background:var(--blue-dim);transform:translateY(-1px)}
+.plan-btn-green{background:var(--green);color:#041210}
+.plan-btn-green:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(16,217,138,0.3)}
+
+#about{background:var(--bg2)}
+.about-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about-text p{color:var(--muted);line-height:1.8;font-size:0.95rem;margin-top:12px}
+.about-text strong{color:var(--text)}
+.about-links{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.about-link{display:inline-flex;align-items:center;gap:8px;color:var(--blue-light);font-weight:500;text-decoration:none;font-size:0.875rem;padding:9px 18px;border:1px solid var(--blue-border);border-radius:8px;transition:all 0.2s}
+.about-link:hover{background:var(--blue-dim);border-color:var(--blue)}
+.about-visual{background:var(--card);border:1px solid var(--card-border);border-radius:16px;padding:32px}
+.about-stat{padding:18px 0;border-bottom:1px solid var(--card-border);display:flex;justify-content:space-between;align-items:center}
+.about-stat:last-child{border-bottom:none;padding-bottom:0}
+.about-stat-label{font-size:0.85rem;color:var(--muted)}
+.about-stat-value{font-family:'Syne',sans-serif;font-weight:700;font-size:0.95rem;color:var(--text)}
+
+#trust{background:var(--bg);padding:64px 0}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.trust-card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;padding:24px 20px;text-align:center}
+.trust-icon{font-size:1.6rem;margin-bottom:10px}
+.trust-title{font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:6px}
+.trust-desc{font-size:0.8rem;color:var(--muted);line-height:1.6}
+
+#faq{background:var(--bg2)}
+.faq-header{text-align:center;margin-bottom:48px}
+.faq-list{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+details{background:var(--card);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;transition:border-color 0.2s}
+details[open]{border-color:var(--blue-border)}
+summary{padding:18px 22px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:0.92rem;display:flex;align-items:center;justify-content:space-between;gap:16px;list-style:none;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-size:1.2rem;font-weight:300;color:var(--blue);transition:transform 0.2s;flex-shrink:0}
+details[open] summary::after{transform:rotate(45deg)}
+details[open] summary{color:var(--blue-light)}
+.faq-answer{padding:0 22px 18px;font-size:0.88rem;color:var(--muted);line-height:1.75;border-top:1px solid var(--card-border);padding-top:14px}
+
+footer{background:var(--bg);padding:40px 0;border-top:1px solid var(--card-border)}
+.footer-inner{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.footer-copy{font-size:0.8rem;color:var(--muted)}
+.footer-contact{font-size:0.8rem;color:var(--muted)}
+.footer-contact a{color:var(--blue-light);text-decoration:none}
+.footer-legal{font-size:0.7rem;color:#374151;max-width:600px;line-height:1.5;margin-top:4px}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:960px){
+.hero-content{grid-template-columns:1fr;gap:48px}
+.hero-right{display:none}
+.steps{grid-template-columns:1fr 1fr}
+.pricing-grid{grid-template-columns:1fr 1fr}
+.about-inner{grid-template-columns:1fr}
+.trust-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+section{padding:64px 0}
+.steps{grid-template-columns:1fr}
+.pricing-grid{grid-template-columns:1fr}
+.trust-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Lead<span>Pack</span></div>
+    <a href="https://tally.so/r/9qvGB5" class="nav-cta" target="_blank">2 leads gratuits</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag"><span class="hero-tag-dot"></span>Leads chauds · Mis à jour en temps réel</div>
+      <h1>Des prospects qui <em>cherchent</em> un prestataire web — livrés instantanément</h1>
+      <p class="hero-desc">Fini la prospection à froid. LeadPack collecte des demandes actives de création de site web publiées en ligne. Ces personnes cherchent un prestataire <strong style="color:var(--text)">maintenant</strong>.</p>
+      <div class="hero-actions">
+        <a href="https://tally.so/r/9qvGB5" class="btn-primary" target="_blank">🎁 2 leads offerts gratuitement</a>
+        <a href="#pricing" class="btn-ghost">Voir les offres →</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="live-feed">
+        <div class="feed-header">
+          <div class="feed-title">Demandes en temps réel</div>
+          <div class="feed-live"><span class="feed-live-dot"></span>En direct</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-item-top">
+            <div class="feed-item-title">Site vitrine + espace client pour coach sportif</div>
+            <span class="feed-badge badge-new">Nouveau</span>
+          </div>
+          <div class="feed-item-meta">Il y a 12 min</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-item-top">
+            <div class="feed-item-title">Refonte WordPress — e-commerce bijoux artisanaux</div>
+            <span class="feed-badge badge-hot">Urgent</span>
+          </div>
+          <div class="feed-item-meta">Il y a 34 min</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-item-top">
+            <div class="feed-item-title">Création site web cabinet kinésithérapeute</div>
+            <span class="feed-badge badge-new">Nouveau</span>
+          </div>
+          <div class="feed-item-meta">Il y a 1h</div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-item-top">
+            <div class="feed-item-title">Landing page pour lancement SaaS B2B</div>
+            <span class="feed-badge badge-new">Nouveau</span>
+          </div>
+          <div class="feed-item-meta">Il y a 2h</div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">+12</div>
+          <div class="hero-stat-label">Leads aujourd'hui</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">1h</div>
+          <div class="hero-stat-label">Mise à jour</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">100%</div>
+          <div class="hero-stat-label">Intentionnistes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="how-header reveal">
+      <span class="section-label">Comment ça marche</span>
+      <h2 class="section-title">Simple. Automatique. Efficace.</h2>
+      <p class="section-sub">Du formulaire à votre boîte mail en moins de 30 secondes.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Vous remplissez le formulaire</div>
+        <p class="step-desc">Indiquez votre zone géographique et votre activité. Ça prend 30 secondes.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">On collecte en temps réel</div>
+        <p class="step-desc">Notre système récupère toutes les demandes actives de projets web publiées en ligne.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Vous recevez les leads</div>
+        <p class="step-desc">Titre du projet, description complète, lien direct vers la demande et script de contact.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Vous contactez et signez</div>
+        <p class="step-desc">Ces prospects ont déjà exprimé un besoin. Votre taux de conversion sera bien supérieur à la prospection froide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <span class="section-label">Tarifs</span>
+      <h2 class="section-title">Commencez gratuitement</h2>
+      <p class="section-sub">2 leads offerts pour tester la qualité. Payez seulement si vous êtes convaincu.</p>
+    </div>
+    <div class="pricing-grid reveal">
+
+      <div class="pricing-card free">
+        <span class="pricing-badge badge-free">🎁 Gratuit</span>
+        <div class="plan-label">Test</div>
+        <div class="plan-price"><sup>€</sup>0</div>
+        <div class="plan-leads">Sans engagement · <strong>2 leads chauds</strong></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>2 demandes actives de projets web</li>
+          <li>Titre + description + lien direct</li>
+          <li>Script de contact inclus</li>
+          <li>Zéro carte bancaire</li>
+        </ul>
+        <a href="https://tally.so/r/9qvGB5" class="plan-btn plan-btn-green" target="_blank">Recevoir 2 leads gratuits</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="plan-label">Découverte</div>
+        <div class="plan-price"><sup>€</sup>29</div>
+        <div class="plan-leads">Paiement unique · <strong>10 leads chauds</strong></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>10 demandes actives de projets web</li>
+          <li>Titre + description + lien direct</li>
+          <li>Script de contact personnalisé</li>
+          <li>Livraison instantanée</li>
+          <li>Satisfait ou remboursé 72h</li>
+        </ul>
+        <a href="https://buy.stripe.com/bJe4gB63B6sgdih6A6d3i09" class="plan-btn plan-btn-outline" target="_blank">Commander — 29€</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="pricing-badge badge-pop">⭐ Meilleur rapport</span>
+        <div class="plan-label">Essentiel</div>
+        <div class="plan-price"><sup>€</sup>50</div>
+        <div class="plan-leads">Paiement unique · <strong>25 leads chauds</strong></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>25 demandes actives de projets web</li>
+          <li>Titre + description + lien direct</li>
+          <li>Script de contact personnalisé</li>
+          <li>Livraison instantanée</li>
+          <li>Satisfait ou remboursé 72h</li>
+        </ul>
+        <a href="https://buy.stripe.com/6oUeVf77F3g47XXcYud3i0a" class="plan-btn plan-btn-blue" target="_blank">Commander — 50€</a>
+      </div>
+
+      <div class="pricing-card">
+        <div class="plan-label">Pro</div>
+        <div class="plan-price"><sup>€</sup>150</div>
+        <div class="plan-leads">Paiement unique · <strong>100 leads chauds</strong></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>100 demandes actives de projets web</li>
+          <li>Titre + description + lien direct</li>
+          <li>Script de contact personnalisé</li>
+          <li>Livraison instantanée</li>
+          <li>Satisfait ou remboursé 72h</li>
+          <li>Idéal pour agences web</li>
+        </ul>
+        <a href="https://buy.stripe.com/7sY28tdw37wkced5w2d3i0b" class="plan-btn plan-btn-outline" target="_blank">Commander — 150€</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text reveal">
+        <span class="section-label">Qui sommes-nous</span>
+        <h2 class="section-title">Un outil construit par un freelance, pour les freelances</h2>
+        <p>Je suis <strong>Jason Chambon</strong>, fondateur de LeadPack. J'ai créé cet outil parce que la prospection à froid ne fonctionne pas — ni pour vous, ni pour les entreprises qui n'ont rien demandé.</p>
+        <p>LeadPack collecte uniquement des <strong>demandes actives publiées publiquement</strong> en ligne. Ces personnes cherchent un prestataire web <em>maintenant</em>. Vous arrivez au bon moment, avec le bon message.</p>
+        <div class="about-links">
+          <a href="https://www.linkedin.com/in/jason-marchal-chambon-a7160239b/" class="about-link" target="_blank">💼 LinkedIn</a>
+          <a href="mailto:contact@leadpack.eu" class="about-link">✉️ contact@leadpack.eu</a>
+        </div>
+      </div>
+      <div class="about-visual reveal">
+        <div class="about-stat">
+          <span class="about-stat-label">Type de prospects</span>
+          <span class="about-stat-value">100% intentionnistes</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-label">Fréquence de mise à jour</span>
+          <span class="about-stat-value">Toutes les heures</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-label">Conformité</span>
+          <span class="about-stat-value">Données publiques RGPD</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-label">Livraison</span>
+          <span class="about-stat-value">Instantanée par email</span>
+        </div>
+        <div class="about-stat">
+          <span class="about-stat-label">Garantie</span>
+          <span class="about-stat-value">Satisfait ou remboursé 72h</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trust">
+  <div class="container">
+    <div class="trust-grid reveal">
+      <div class="trust-card">
+        <div class="trust-icon">🎯</div>
+        <div class="trust-title">Prospects chauds uniquement</div>
+        <p class="trust-desc">Uniquement des personnes ayant publié une demande active. Zéro prospection froide.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">⚡</div>
+        <div class="trust-title">Livraison instantanée</div>
+        <p class="trust-desc">Leads envoyés par email en moins de 30 secondes après votre demande.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">🛡️</div>
+        <div class="trust-title">Données publiques</div>
+        <p class="trust-desc">Collecte uniquement des annonces publiées publiquement. Conforme RGPD.</p>
+      </div>
+      <div class="trust-card">
+        <div class="trust-icon">💯</div>
+        <div class="trust-title">Remboursé si insatisfait</div>
+        <p class="trust-desc">72h pour tester. Remboursement intégral sans condition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="faq-header reveal">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Questions fréquentes</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details>
+        <summary>C'est quoi exactement un lead chaud ?</summary>
+        <div class="faq-answer">Un lead chaud c'est une personne qui a publié une demande active en ligne. Elle cherche un prestataire web maintenant. C'est l'opposé de la prospection froide où vous contactez des gens qui n'ont rien demandé.</div>
+      </details>
+      <details>
+        <summary>D'où viennent les leads ?</summary>
+        <div class="faq-answer">Nos leads proviennent de plateformes publiques où des clients publient leurs projets web. Le flux est mis à jour toutes les heures automatiquement.</div>
+      </details>
+      <details>
+        <summary>Combien de leads y a-t-il par jour ?</summary>
+        <div class="faq-answer">En moyenne entre 5 et 20 nouvelles demandes par jour dans la catégorie création de site web. Les leads sont mis à jour toutes les heures.</div>
+      </details>
+      <details>
+        <summary>Quelle est la différence entre les 3 packs payants ?</summary>
+        <div class="faq-answer">Uniquement le nombre de leads : 10 pour Découverte (29€), 25 pour Essentiel (50€) et 100 pour Pro (150€). Le contenu est identique — titre du projet, description, lien direct, script de contact.</div>
+      </details>
+      <details>
+        <summary>Et si les leads ne correspondent pas à ma zone ?</summary>
+        <div class="faq-answer">Lors du formulaire vous indiquez votre zone. On filtre en priorité les projets correspondants. De nombreux clients acceptent aussi de travailler à distance.</div>
+      </details>
+      <details>
+        <summary>C'est conforme RGPD ?</summary>
+        <div class="faq-answer">Oui. On collecte uniquement des annonces publiées publiquement par leurs auteurs. Ce sont des demandes volontairement rendues publiques, pas des données personnelles extraites sans consentement.</div>
+      </details>
+      <details>
+        <summary>Est-ce que je peux recevoir plusieurs fois les leads gratuits ?</summary>
+        <div class="faq-answer">Non, le formulaire est limité à une réponse par email. Pour plus de leads, les packs payants sont là pour ça.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="logo">Lead<span>Pack</span></div>
+      <div class="footer-contact">Contact : <a href="mailto:contact@leadpack.eu">contact@leadpack.eu</a></div>
+      <div class="footer-copy">© 2026 LeadPack. Tous droits réservés.</div>
+      <div class="footer-legal">LeadPack — Jason Chambon · Entrepreneur individuel · Données issues de plateformes publiques · Conforme RGPD · Paiements sécurisés par Stripe</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!els.length)return;
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}
+    });
+  },{threshold:0.1});
+  els.forEach(function(el){obs.observe(el);});
+})();
+</script>
+</body>
+</html>
