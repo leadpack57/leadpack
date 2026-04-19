@@ -362,7 +362,7 @@ h2{
 .how-header{text-align:center;margin-bottom:64px;}
 .how-header .section-desc{margin:0 auto;max-width:500px;}
 .steps{
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(5,1fr);
   gap:2px;
   background:var(--border);
   border-radius:16px;overflow:hidden;
@@ -393,7 +393,7 @@ h2{
 .pricing-header{text-align:center;margin-bottom:64px;}
 .pricing-header .section-desc{margin:0 auto;max-width:500px;}
 .pricing-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(5,1fr);
   gap:20px;align-items:start;
 }
 .pricing-card{
@@ -572,7 +572,7 @@ h2{
 #trust{
   padding:80px 0;background:var(--ink);
 }
-.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.06);}
+.trust-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(255,255,255,0.06);}
 .trust-card{
   background:var(--ink);padding:40px 28px;text-align:center;
 }
@@ -909,6 +909,22 @@ footer{
     </div>
     <div class="pricing-grid reveal">
 
+      <div class="pricing-card weekly" style="border-color:#C8A84B;">
+        <span class="pricing-badge" style="background:#C8A84B;color:#fff;">⚡ Abonnement</span>
+        <div class="plan-label">Weekly</div>
+        <div class="plan-price" style="color:#C8A84B;"><sup>€</sup>19<span style="font-size:1rem;font-weight:500;letter-spacing:0;">/sem</span></div>
+        <div class="plan-leads">Chaque lundi · <strong>5 leads chauds</strong></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>5 nouvelles demandes chaque lundi matin</li>
+          <li>Titre + description + lien direct</li>
+          <li>Script de contact personnalisé</li>
+          <li>Résiliable à tout moment</li>
+          <li>Remboursé si insatisfait 72h</li>
+        </ul>
+        <a href="https://buy.stripe.com/6oU5kF0Jh17W2DD5w2d3i0h" class="plan-btn plan-btn-ink" style="background:#C8A84B;box-shadow:0 3px 0 #9E7F2E;" target="_blank">Souscrire — 19€/sem</a>
+      </div>
+
       <div class="pricing-card free">
         <span class="pricing-badge badge-free">🎁 Gratuit</span>
         <div class="plan-label">Test</div>
@@ -1170,6 +1186,35 @@ footer{
     });
   },{threshold:0.08});
   els.forEach(function(el){obs.observe(el);});
+})();
+</script>
+<!-- POPUP EXIT INTENT -->
+<div id="popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#F5F3EE;border-radius:16px;padding:48px 40px;max-width:480px;width:90%;position:relative;text-align:center;">
+    <button onclick="document.getElementById('popup').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6B6B7A;">×</button>
+    <div style="font-size:2rem;margin-bottom:16px;">🔥</div>
+    <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;color:#0A0A0F;margin-bottom:12px;">Partez pas sans vos 2 leads gratuits !</h2>
+    <p style="color:#6B6B7A;margin-bottom:28px;line-height:1.6;">Des freelances reçoivent des demandes actives en ce moment. Testez gratuitement — zéro carte bancaire.</p>
+    <a href="https://tally.so/r/9qvGB5" target="_blank" style="display:block;background:#FF4D1C;color:#fff;padding:16px 32px;border-radius:8px;font-weight:700;font-size:1rem;text-decoration:none;box-shadow:0 4px 0 #C43A0F;">Recevoir mes 2 leads gratuits →</a>
+    <p style="font-size:0.75rem;color:#6B6B7A;margin-top:16px;">Livraison en 30 secondes · Satisfait ou remboursé 72h</p>
+  </div>
+</div>
+<script>
+(function(){
+  var shown = sessionStorage.getItem('popup_shown');
+  if(shown) return;
+  document.addEventListener('mouseleave', function(e){
+    if(e.clientY < 10){
+      sessionStorage.setItem('popup_shown','1');
+      document.getElementById('popup').style.display='flex';
+    }
+  });
+  setTimeout(function(){
+    if(!sessionStorage.getItem('popup_shown')){
+      sessionStorage.setItem('popup_shown','1');
+      document.getElementById('popup').style.display='flex';
+    }
+  }, 45000);
 })();
 </script>
 </body>
